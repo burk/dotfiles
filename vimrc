@@ -7,5 +7,7 @@ set ignorecase
 set incsearch
 set number
 set modeline
+set nojoinspaces
 filetype plugin indent on
+match Error /[\x7f-\xff]/ 
 
