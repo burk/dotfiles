@@ -4,7 +4,6 @@ zstyle ':completion:*' completer _complete _ignored
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' verbose true
 zstyle ':completion:*' special-dirs true
-zstyle :compinstall filename '/home/cassarossa/itk/bjornrus/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -13,6 +12,7 @@ compinit
 HISTFILE=~/.histfile
 HISTSIZE=900000
 SAVEHIST=900000
+setopt INC_APPEND_HISTORY
 bindkey -e
 
 alias ls='ls --color=auto'
