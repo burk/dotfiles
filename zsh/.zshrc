@@ -43,7 +43,7 @@ for host in `hostname -f` `hostname`; do
 		maxwell.rustad.me)   COLOR=`echo -n '\e[1;36m'` ;;
 		nilfisk)             COLOR=`echo -n '\e[1;39m'` ;;
 		gauss)               COLOR=`echo -n '\e[1;34m'` ;;
-                *.samfundet.no)      COLOR=`echo -n '\e[1;33m'` ;;
+		hilbert)             COLOR=`echo -n '\e[1;35m'` ;;
         esac
 done
 PROMPT=`echo %j '%(!.%{\e[1;31m%}%n.%{\e[1;30m%}%n)%{\e[0;37m%}@%{'${COLOR}'%}%m%{\e[m%}:%{\e[1;33m%}%30<..<%~%{\e[m%}$(vcs_info_wrapper)%(!.#.>) '`
