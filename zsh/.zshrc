@@ -12,7 +12,7 @@ compinit
 HISTFILE=~/.zsh_history
 HISTSIZE=900000
 SAVEHIST=900000
-setopt INC_APPEND_HISTORY
+setopt INC_APPEND_HISTORY_TIME
 bindkey -e
 
 setopt prompt_subst
@@ -34,6 +34,8 @@ vcs_info_wrapper() {
 
 alias ls='ls --color=auto'
 alias ll='ls -la'
+alias ga='git add'
+alias gc='git checkout'
 alias exacloud='docker run -it --mount type=bind,source="${HOME}/.config/gcloud",target="/root/.config/gcloud,readonly" eu.gcr.io/verdant-ethos-150510/exacloud:latest'
 
 # Nice prompt
@@ -46,8 +48,20 @@ for host in `hostname -f` `hostname`; do
 		hilbert)             COLOR=`echo -n '\e[1;35m'` ;;
         esac
 done
-PROMPT=`echo %j '%(!.%{\e[1;31m%}%n.%{\e[1;30m%}%n)%{\e[0;37m%}@%{'${COLOR}'%}%m%{\e[m%}:%{\e[1;33m%}%30<..<%~%{\e[m%}$(vcs_info_wrapper)%(!.#.>) '`
+PROMPT=`echo %j '%(!.%{\e[1;31m%}%n.%{\e[1;30m%}%n)%{\e[0;37m%}@%{'${COLOR}'%}%m%{\e[m%}:%{\e[1;33m%}%45<..<%~%{\e[m%}$(vcs_info_wrapper)%(!.#.>) '`
 
 export EDITOR=vim
+export PATH=$PATH:/home/burk/.local/bin
+
+export IBUS_DISCARD_PASSWORD_APPS='firefox,.*chrome.*'
+
+alias wow='git status'
+alias vzf='vim $(fzf)'
+alias bzf='bat $(fzf)'
+
+source /usr/share/zsh/vendor-completions/_fzf
+source /usr/share/doc/fzf/examples/key-bindings.zsh
 
 # End of lines configured by zsh-newuser-install
+
+source /home/burk/.config/broot/launcher/bash/br

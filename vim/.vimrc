@@ -1,3 +1,8 @@
+call plug#begin('~/.vim/plugged')
+Plug '/usr/share/doc/fzf/examples'
+Plug 'junegunn/fzf.vim'
+call plug#end()
+
 set ruler
 syntax on
 set nocompatible
