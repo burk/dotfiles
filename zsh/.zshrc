@@ -46,6 +46,10 @@ for host in `hostname -f` `hostname`; do
 		nilfisk)             COLOR=`echo -n '\e[1;39m'` ;;
 		gauss)               COLOR=`echo -n '\e[1;34m'` ;;
 		hilbert)             COLOR=`echo -n '\e[1;35m'` ;;
+		conway)              COLOR=`echo -n '\e[1;92m'` ;;
+		banach)              COLOR=`echo -n '\e[1;94m'` ;;
+		godel)               COLOR=`echo -n '\e[1;95m'` ;;
+		wigner)              COLOR=`echo -n '\e[1;96m'` ;;
         esac
 done
 PROMPT=`echo %j '%(!.%{\e[1;31m%}%n.%{\e[1;30m%}%n)%{\e[0;37m%}@%{'${COLOR}'%}%m%{\e[m%}:%{\e[1;33m%}%45<..<%~%{\e[m%}$(vcs_info_wrapper)%(!.#.>) '`
@@ -59,7 +63,7 @@ alias wow='git status'
 alias vzf='vim $(fzf)'
 alias bzf='bat $(fzf)'
 
-source /usr/share/zsh/vendor-completions/_fzf
+source /usr/share/doc/fzf/examples/completion.zsh
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 
 # End of lines configured by zsh-newuser-install
