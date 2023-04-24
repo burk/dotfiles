@@ -13,9 +13,8 @@ set incsearch
 set number
 set modeline
 set nojoinspaces
-set mouse=r
 filetype plugin indent on
 match Error /[\x7f-\xff]/ 
 set clipboard=unnamed
-set mouse=
+set mouse-=a
 

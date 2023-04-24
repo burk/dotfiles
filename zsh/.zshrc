@@ -32,11 +32,28 @@ vcs_info_wrapper() {
 	fi
 }
 
+kubectx_wrapper() {
+	if [[ "$PWD" == *"kubernetes"* ]]; then
+		echo "$(kube_ps1)"
+	fi
+}
+
+format_cluster_name() {
+	if [[ "$1" == *"prod"* ]]; then
+		echo $1 | tr '[:lower:]' '[:upper:]'
+	else
+		echo $1
+	fi
+}
+
 alias ls='ls --color=auto'
 alias ll='ls -la'
-alias ga='git add'
-alias gc='git checkout'
-alias exacloud='docker run -it --mount type=bind,source="${HOME}/.config/gcloud",target="/root/.config/gcloud,readonly" eu.gcr.io/verdant-ethos-150510/exacloud:latest'
+
+source ~/bin/kube-ps1.sh
+export KUBE_PS1_NS_ENABLE=true
+export KUBE_PS1_SYMBOL_ENABLE=false
+export KUBE_PS1_SUFFIX=") "
+export KUBE_PS1_CLUSTER_FUNCTION=format_cluster_name
 
 # Nice prompt
 COLOR=`echo -n '\e[1;32m'`
@@ -52,10 +69,12 @@ for host in `hostname -f` `hostname`; do
 		wigner)              COLOR=`echo -n '\e[1;96m'` ;;
         esac
 done
-PROMPT=`echo %j '%(!.%{\e[1;31m%}%n.%{\e[1;30m%}%n)%{\e[0;37m%}@%{'${COLOR}'%}%m%{\e[m%}:%{\e[1;33m%}%45<..<%~%{\e[m%}$(vcs_info_wrapper)%(!.#.>) '`
+PROMPT=`echo %j '$(kubectx_wrapper)%{\e[0;37m%}%{\e[1;33m%}%45<..<%~%{\e[m%}$(vcs_info_wrapper)%(!.#.>) '`
+#PROMPT=`echo %j '$(kubectx_wrapper)%(!.%{\e[1;31m%}%n.%{\e[1;30m%}%n)%{\e[0;37m%}@%{'${COLOR}'%}%m%{\e[m%}:%{\e[1;33m%}%45<..<%~%{\e[m%}$(vcs_info_wrapper)%(!.#.>) '`
 
 export EDITOR=vim
-export PATH=$PATH:/home/burk/.local/bin
+
+export PATH=$PATH:$HOME/bin
 
 export IBUS_DISCARD_PASSWORD_APPS='firefox,.*chrome.*'
 
@@ -66,6 +85,30 @@ alias bzf='bat $(fzf)'
 source /usr/share/doc/fzf/examples/completion.zsh
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 
-# End of lines configured by zsh-newuser-install
-
 source /home/burk/.config/broot/launcher/bash/br
+export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+
+if [[ $(hostname -f) == "selberg" ]]; then
+	export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+	export PYENV_ROOT="$HOME/.pyenv"
+	export PATH="$PYENV_ROOT/bin:$PATH"
+	export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$JAVA_HOME/bin
+
+	eval "$(pyenv init -)"
+	
+	# The next line updates PATH for the Google Cloud SDK.
+	if [ -f '/home/burk/apps/google-cloud-sdk/path.zsh.inc' ];
+	then
+		. '/home/burk/apps/google-cloud-sdk/path.zsh.inc';
+	fi
+	
+	# The next line enables shell command completion for gcloud.
+	if [ -f '/home/burk/apps/google-cloud-sdk/completion.zsh.inc' ];
+	then
+		. '/home/burk/apps/google-cloud-sdk/completion.zsh.inc';
+	fi
+	
+	export LD_LIBRARY_PATH=/opt/intel/lib/intel64:/opt/intel/mkl/lib/intel64
+fi
+
+
