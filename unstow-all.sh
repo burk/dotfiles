@@ -6,4 +6,5 @@ stow -D vim
 stow -D xmonad
 stow -D unison
 stow -D --target=/home/burk/bin bin
+stow -D --target=/home/burk/.config/sway sway
 
