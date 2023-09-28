@@ -1,5 +1,3 @@
-# The following lines were added by compinstall
-
 zstyle ':completion:*' completer _complete _ignored
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' verbose true
@@ -82,10 +80,20 @@ alias wow='git status'
 alias vzf='vim $(fzf)'
 alias bzf='bat $(fzf)'
 
-source /usr/share/doc/fzf/examples/completion.zsh
-source /usr/share/doc/fzf/examples/key-bindings.zsh
+if [[ -f "/usr/share/doc/fzf/examples/completion.zsh" ]];
+then
+	source /usr/share/doc/fzf/examples/completion.zsh
+fi
+if [[ -f "/usr/share/doc/fzf/examples/key-bindings.zsh" ]];
+then
+	source /usr/share/doc/fzf/examples/key-bindings.zsh
+fi
 
-source /home/burk/.config/broot/launcher/bash/br
+if [[ -f "/home/burk/.config/broot/launcher/bash/br" ]];
+then
+	source /home/burk/.config/broot/launcher/bash/br
+fi
+
 export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
 
 if [[ $(hostname -f) == "selberg" ]]; then
@@ -97,13 +105,13 @@ if [[ $(hostname -f) == "selberg" ]]; then
 	eval "$(pyenv init -)"
 	
 	# The next line updates PATH for the Google Cloud SDK.
-	if [ -f '/home/burk/apps/google-cloud-sdk/path.zsh.inc' ];
+	if [[ -f '/home/burk/apps/google-cloud-sdk/path.zsh.inc' ]];
 	then
 		. '/home/burk/apps/google-cloud-sdk/path.zsh.inc';
 	fi
 	
 	# The next line enables shell command completion for gcloud.
-	if [ -f '/home/burk/apps/google-cloud-sdk/completion.zsh.inc' ];
+	if [[ -f '/home/burk/apps/google-cloud-sdk/completion.zsh.inc' ]];
 	then
 		. '/home/burk/apps/google-cloud-sdk/completion.zsh.inc';
 	fi
