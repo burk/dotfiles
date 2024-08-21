@@ -72,7 +72,7 @@ PROMPT=`echo %j '$(kubectx_wrapper)%{\e[0;37m%}%{\e[1;33m%}%45<..<%~%{\e[m%}$(vc
 
 export EDITOR=vim
 
-export PATH=$PATH:$HOME/bin
+export PATH=$HOME/bin:$PATH
 
 export IBUS_DISCARD_PASSWORD_APPS='firefox,.*chrome.*'
 
@@ -97,10 +97,11 @@ fi
 export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
 
 if [[ $(hostname -f) == "selberg" ]]; then
-	export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+	export JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"
 	export PYENV_ROOT="$HOME/.pyenv"
 	export PATH="$PYENV_ROOT/bin:$PATH"
 	export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$JAVA_HOME/bin
+	export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
 
 	eval "$(pyenv init -)"
 	
@@ -117,6 +118,9 @@ if [[ $(hostname -f) == "selberg" ]]; then
 	fi
 	
 	export LD_LIBRARY_PATH=/opt/intel/lib/intel64:/opt/intel/mkl/lib/intel64
-fi
 
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
 
